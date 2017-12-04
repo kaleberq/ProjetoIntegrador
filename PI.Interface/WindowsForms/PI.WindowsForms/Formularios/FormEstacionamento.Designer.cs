@@ -39,6 +39,7 @@
             this.btnEditarEstacionamento = new System.Windows.Forms.Button();
             this.btnExcluirEstacionamento = new System.Windows.Forms.Button();
             this.dataGridEstacionamento = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridEstacionamento)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,11 +130,21 @@
             this.dataGridEstacionamento.Size = new System.Drawing.Size(415, 150);
             this.dataGridEstacionamento.TabIndex = 9;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(326, 156);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Excluir";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FormEstacionamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 361);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridEstacionamento);
             this.Controls.Add(this.btnExcluirEstacionamento);
             this.Controls.Add(this.btnEditarEstacionamento);
@@ -166,5 +177,6 @@
         private System.Windows.Forms.Button btnEditarEstacionamento;
         private System.Windows.Forms.Button btnExcluirEstacionamento;
         private System.Windows.Forms.DataGridView dataGridEstacionamento;
+        private System.Windows.Forms.Button button1;
     }
 }
