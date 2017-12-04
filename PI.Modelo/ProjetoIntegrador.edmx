@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EstacionamentoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estacionamento">
+          <Key>
+            <PropertyRef Name="IdEstacionamento" />
+          </Key>
+          <Property Name="IdEstacionamento" Type="int" Nullable="false" />
+          <Property Name="IdPessoa" Type="int" Nullable="false" />
+          <Property Name="VagasOcupadas" Type="int" Nullable="false" />
+          <Property Name="VagasLivres" Type="int" Nullable="false" />
+          <Property Name="NumeroVagas" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Type="int" Nullable="false" />
+          <Property Name="CodigodeRegistro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessaFisica">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Nullable="false" Type="int" />
+          <Property Name="CPF" Nullable="false" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Nullable="false" Type="int" />
+          <Property Name="Nome" Nullable="false" MaxLength="40" Type="varchar" />
+        </EntityType>
+        <EntityType Name="TipoVeiculo">
+          <Key>
+            <PropertyRef Name="IdTipoVeiculo" />
+          </Key>
+          <Property Name="IdTipoVeiculo" Type="int" Nullable="false" />
+          <Property Name="Descricao" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VagaVeiculo">
+          <Key>
+            <PropertyRef Name="IdEstacionamento" />
+            <PropertyRef Name="IdVeiculo" />
+          </Key>
+          <Property Name="IdEstacionamento" Type="int" Nullable="false" />
+          <Property Name="IdVeiculo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="DateTimeEntrada" Type="datetime" Nullable="false" />
+          <Property Name="DateTimeSaida" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="IdVeiculo" />
+          </Key>
+          <Property Name="IdVeiculo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Placa" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Marca" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Ano" Type="datetime" Nullable="false" />
+          <Property Name="Modelo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="IdTipoVeiculo" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="Estacionamento_VagaVeiculo_fk">
+          <End Role="Estacionamento" Type="Self.Estacionamento" Multiplicity="1" />
+          <End Role="VagaVeiculo" Type="Self.VagaVeiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estacionamento">
+              <PropertyRef Name="IdEstacionamento" />
+            </Principal>
+            <Dependent Role="VagaVeiculo">
+              <PropertyRef Name="IdEstacionamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Funcionario_Estacionamento_fk">
+          <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="1" />
+          <End Role="Estacionamento" Type="Self.Estacionamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funcionario">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Estacionamento">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PessaFisica_Cliente_fk">
+          <End Type="Self.PessaFisica" Multiplicity="1" Role="PessaFisica" />
+          <End Type="Self.Cliente" Multiplicity="0..1" Role="Cliente" />
+          <ReferentialConstraint>
+            <Principal Role="PessaFisica">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PessaFisica_Funcionario_fk">
+          <End Type="Self.PessaFisica" Multiplicity="1" Role="PessaFisica" />
+          <End Type="Self.Funcionario" Multiplicity="0..1" Role="Funcionario" />
+          <ReferentialConstraint>
+            <Principal Role="PessaFisica">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Funcionario">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pessoa_PessaFisica_fk">
+          <End Type="Self.Pessoa" Multiplicity="1" Role="Pessoa" />
+          <End Type="Self.PessaFisica" Multiplicity="0..1" Role="PessaFisica" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="PessaFisica">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TipoVeiculo_Veiculo_fk">
+          <End Role="TipoVeiculo" Type="Self.TipoVeiculo" Multiplicity="1" />
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoVeiculo">
+              <PropertyRef Name="IdTipoVeiculo" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="IdTipoVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Veiculo_VagaVeiculo_fk">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="1" />
+          <End Role="VagaVeiculo" Type="Self.VagaVeiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="IdVeiculo" />
+            </Principal>
+            <Dependent Role="VagaVeiculo">
+              <PropertyRef Name="IdVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EstacionamentoModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estacionamento" EntityType="Self.Estacionamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funcionario" EntityType="Self.Funcionario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessaFisica" EntityType="Self.PessaFisica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoVeiculo" EntityType="Self.TipoVeiculo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VagaVeiculo" EntityType="Self.VagaVeiculo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Estacionamento_VagaVeiculo_fk" Association="Self.Estacionamento_VagaVeiculo_fk">
+            <End Role="Estacionamento" EntitySet="Estacionamento" />
+            <End Role="VagaVeiculo" EntitySet="VagaVeiculo" />
+          </AssociationSet>
+          <AssociationSet Name="Funcionario_Estacionamento_fk" Association="Self.Funcionario_Estacionamento_fk">
+            <End Role="Funcionario" EntitySet="Funcionario" />
+            <End Role="Estacionamento" EntitySet="Estacionamento" />
+          </AssociationSet>
+          <AssociationSet Name="PessaFisica_Cliente_fk" Association="Self.PessaFisica_Cliente_fk">
+            <End EntitySet="PessaFisica" Role="PessaFisica" />
+            <End EntitySet="Cliente" Role="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="PessaFisica_Funcionario_fk" Association="Self.PessaFisica_Funcionario_fk">
+            <End EntitySet="PessaFisica" Role="PessaFisica" />
+            <End EntitySet="Funcionario" Role="Funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="Pessoa_PessaFisica_fk" Association="Self.Pessoa_PessaFisica_fk">
+            <End EntitySet="Pessoa" Role="Pessoa" />
+            <End EntitySet="PessaFisica" Role="PessaFisica" />
+          </AssociationSet>
+          <AssociationSet Name="TipoVeiculo_Veiculo_fk" Association="Self.TipoVeiculo_Veiculo_fk">
+            <End Role="TipoVeiculo" EntitySet="TipoVeiculo" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+          <AssociationSet Name="Veiculo_VagaVeiculo_fk" Association="Self.Veiculo_VagaVeiculo_fk">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="VagaVeiculo" EntitySet="VagaVeiculo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EstacionamentoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PessaFisica" Relationship="Self.PessaFisica_Cliente_fk" FromRole="Cliente" ToRole="PessaFisica" />
+        </EntityType>
+        <EntityType Name="Estacionamento">
+          <Key>
+            <PropertyRef Name="IdEstacionamento" />
+          </Key>
+          <Property Name="IdEstacionamento" Type="Int32" Nullable="false" />
+          <Property Name="IdPessoa" Type="Int32" Nullable="false" />
+          <Property Name="VagasOcupadas" Type="Int32" Nullable="false" />
+          <Property Name="VagasLivres" Type="Int32" Nullable="false" />
+          <Property Name="NumeroVagas" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VagaVeiculo" Relationship="Self.Estacionamento_VagaVeiculo_fk" FromRole="Estacionamento" ToRole="VagaVeiculo" />
+          <NavigationProperty Name="Funcionario" Relationship="Self.Funcionario_Estacionamento_fk" FromRole="Estacionamento" ToRole="Funcionario" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Type="Int32" Nullable="false" />
+          <Property Name="CodigodeRegistro" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estacionamento" Relationship="Self.Funcionario_Estacionamento_fk" FromRole="Funcionario" ToRole="Estacionamento" />
+          <NavigationProperty Name="PessaFisica" Relationship="Self.PessaFisica_Funcionario_fk" FromRole="Funcionario" ToRole="PessaFisica" />
+        </EntityType>
+        <EntityType Name="PessaFisica">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Nullable="false" Type="Int32" />
+          <Property Name="CPF" Nullable="false" Type="Int64" />
+          <NavigationProperty Name="Cliente" Relationship="Self.PessaFisica_Cliente_fk" FromRole="PessaFisica" ToRole="Cliente" />
+          <NavigationProperty Name="Funcionario" Relationship="Self.PessaFisica_Funcionario_fk" FromRole="PessaFisica" ToRole="Funcionario" />
+          <NavigationProperty Name="Pessoa" Relationship="Self.Pessoa_PessaFisica_fk" FromRole="PessaFisica" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="IdPessoa" />
+          </Key>
+          <Property Name="IdPessoa" Nullable="false" Type="Int32" />
+          <Property Name="Nome" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="PessaFisica" Relationship="Self.Pessoa_PessaFisica_fk" FromRole="Pessoa" ToRole="PessaFisica" />
+        </EntityType>
+        <EntityType Name="TipoVeiculo">
+          <Key>
+            <PropertyRef Name="IdTipoVeiculo" />
+          </Key>
+          <Property Name="IdTipoVeiculo" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.TipoVeiculo_Veiculo_fk" FromRole="TipoVeiculo" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="VagaVeiculo">
+          <Key>
+            <PropertyRef Name="IdEstacionamento" />
+            <PropertyRef Name="IdVeiculo" />
+          </Key>
+          <Property Name="IdEstacionamento" Type="Int32" Nullable="false" />
+          <Property Name="IdVeiculo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateTimeEntrada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateTimeSaida" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Estacionamento" Relationship="Self.Estacionamento_VagaVeiculo_fk" FromRole="VagaVeiculo" ToRole="Estacionamento" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.Veiculo_VagaVeiculo_fk" FromRole="VagaVeiculo" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="IdVeiculo" />
+          </Key>
+          <Property Name="IdVeiculo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Placa" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Marca" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ano" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modelo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTipoVeiculo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TipoVeiculo" Relationship="Self.TipoVeiculo_Veiculo_fk" FromRole="Veiculo" ToRole="TipoVeiculo" />
+          <NavigationProperty Name="VagaVeiculo" Relationship="Self.Veiculo_VagaVeiculo_fk" FromRole="Veiculo" ToRole="VagaVeiculo" />
+        </EntityType>
+        <Association Name="PessaFisica_Cliente_fk">
+          <End Type="Self.PessaFisica" Multiplicity="1" Role="PessaFisica" />
+          <End Type="Self.Cliente" Multiplicity="0..1" Role="Cliente" />
+          <ReferentialConstraint>
+            <Principal Role="PessaFisica">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Estacionamento_VagaVeiculo_fk">
+          <End Role="Estacionamento" Type="Self.Estacionamento" Multiplicity="1" />
+          <End Role="VagaVeiculo" Type="Self.VagaVeiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estacionamento">
+              <PropertyRef Name="IdEstacionamento" />
+            </Principal>
+            <Dependent Role="VagaVeiculo">
+              <PropertyRef Name="IdEstacionamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Funcionario_Estacionamento_fk">
+          <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="1" />
+          <End Role="Estacionamento" Type="Self.Estacionamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Funcionario">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Estacionamento">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PessaFisica_Funcionario_fk">
+          <End Type="Self.PessaFisica" Multiplicity="1" Role="PessaFisica" />
+          <End Type="Self.Funcionario" Multiplicity="0..1" Role="Funcionario" />
+          <ReferentialConstraint>
+            <Principal Role="PessaFisica">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="Funcionario">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Pessoa_PessaFisica_fk">
+          <End Type="Self.Pessoa" Multiplicity="1" Role="Pessoa" />
+          <End Type="Self.PessaFisica" Multiplicity="0..1" Role="PessaFisica" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="IdPessoa" />
+            </Principal>
+            <Dependent Role="PessaFisica">
+              <PropertyRef Name="IdPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TipoVeiculo_Veiculo_fk">
+          <End Role="TipoVeiculo" Type="Self.TipoVeiculo" Multiplicity="1" />
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoVeiculo">
+              <PropertyRef Name="IdTipoVeiculo" />
+            </Principal>
+            <Dependent Role="Veiculo">
+              <PropertyRef Name="IdTipoVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Veiculo_VagaVeiculo_fk">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="1" />
+          <End Role="VagaVeiculo" Type="Self.VagaVeiculo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="IdVeiculo" />
+            </Principal>
+            <Dependent Role="VagaVeiculo">
+              <PropertyRef Name="IdVeiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EstacionamentoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Estacionamento" EntityType="Self.Estacionamento" />
+          <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
+          <EntitySet Name="PessaFisica" EntityType="Self.PessaFisica" />
+          <EntitySet Name="Pessoa" EntityType="Self.Pessoa" />
+          <EntitySet Name="TipoVeiculo" EntityType="Self.TipoVeiculo" />
+          <EntitySet Name="VagaVeiculo" EntityType="Self.VagaVeiculo" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+          <AssociationSet Name="PessaFisica_Cliente_fk" Association="Self.PessaFisica_Cliente_fk">
+            <End EntitySet="PessaFisica" Role="PessaFisica" />
+            <End EntitySet="Cliente" Role="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="Estacionamento_VagaVeiculo_fk" Association="Self.Estacionamento_VagaVeiculo_fk">
+            <End Role="Estacionamento" EntitySet="Estacionamento" />
+            <End Role="VagaVeiculo" EntitySet="VagaVeiculo" />
+          </AssociationSet>
+          <AssociationSet Name="Funcionario_Estacionamento_fk" Association="Self.Funcionario_Estacionamento_fk">
+            <End Role="Funcionario" EntitySet="Funcionario" />
+            <End Role="Estacionamento" EntitySet="Estacionamento" />
+          </AssociationSet>
+          <AssociationSet Name="PessaFisica_Funcionario_fk" Association="Self.PessaFisica_Funcionario_fk">
+            <End EntitySet="PessaFisica" Role="PessaFisica" />
+            <End EntitySet="Funcionario" Role="Funcionario" />
+          </AssociationSet>
+          <AssociationSet Name="Pessoa_PessaFisica_fk" Association="Self.Pessoa_PessaFisica_fk">
+            <End EntitySet="Pessoa" Role="Pessoa" />
+            <End EntitySet="PessaFisica" Role="PessaFisica" />
+          </AssociationSet>
+          <AssociationSet Name="TipoVeiculo_Veiculo_fk" Association="Self.TipoVeiculo_Veiculo_fk">
+            <End Role="TipoVeiculo" EntitySet="TipoVeiculo" />
+            <End Role="Veiculo" EntitySet="Veiculo" />
+          </AssociationSet>
+          <AssociationSet Name="Veiculo_VagaVeiculo_fk" Association="Self.Veiculo_VagaVeiculo_fk">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="VagaVeiculo" EntitySet="VagaVeiculo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EstacionamentoModelStoreContainer" CdmEntityContainer="EstacionamentoEntities">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="EstacionamentoModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="IdPessoa" ColumnName="IdPessoa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estacionamento">
+            <EntityTypeMapping TypeName="EstacionamentoModel.Estacionamento">
+              <MappingFragment StoreEntitySet="Estacionamento">
+                <ScalarProperty Name="IdEstacionamento" ColumnName="IdEstacionamento" />
+                <ScalarProperty Name="IdPessoa" ColumnName="IdPessoa" />
+                <ScalarProperty Name="VagasOcupadas" ColumnName="VagasOcupadas" />
+                <ScalarProperty Name="VagasLivres" ColumnName="VagasLivres" />
+                <ScalarProperty Name="NumeroVagas" ColumnName="NumeroVagas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funcionario">
+            <EntityTypeMapping TypeName="EstacionamentoModel.Funcionario">
+              <MappingFragment StoreEntitySet="Funcionario">
+                <ScalarProperty Name="IdPessoa" ColumnName="IdPessoa" />
+                <ScalarProperty Name="CodigodeRegistro" ColumnName="CodigodeRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessaFisica">
+            <EntityTypeMapping TypeName="EstacionamentoModel.PessaFisica">
+              <MappingFragment StoreEntitySet="PessaFisica">
+                <ScalarProperty Name="IdPessoa" ColumnName="IdPessoa" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoa">
+            <EntityTypeMapping TypeName="EstacionamentoModel.Pessoa">
+              <MappingFragment StoreEntitySet="Pessoa">
+                <ScalarProperty Name="IdPessoa" ColumnName="IdPessoa" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoVeiculo">
+            <EntityTypeMapping TypeName="EstacionamentoModel.TipoVeiculo">
+              <MappingFragment StoreEntitySet="TipoVeiculo">
+                <ScalarProperty Name="IdTipoVeiculo" ColumnName="IdTipoVeiculo" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VagaVeiculo">
+            <EntityTypeMapping TypeName="EstacionamentoModel.VagaVeiculo">
+              <MappingFragment StoreEntitySet="VagaVeiculo">
+                <ScalarProperty Name="IdEstacionamento" ColumnName="IdEstacionamento" />
+                <ScalarProperty Name="IdVeiculo" ColumnName="IdVeiculo" />
+                <ScalarProperty Name="DateTimeEntrada" ColumnName="DateTimeEntrada" />
+                <ScalarProperty Name="DateTimeSaida" ColumnName="DateTimeSaida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Veiculo">
+            <EntityTypeMapping TypeName="EstacionamentoModel.Veiculo">
+              <MappingFragment StoreEntitySet="Veiculo">
+                <ScalarProperty Name="IdVeiculo" ColumnName="IdVeiculo" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="IdTipoVeiculo" ColumnName="IdTipoVeiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

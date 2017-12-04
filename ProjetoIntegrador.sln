@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PI.Interface", "PI.Interface", "{4E4CA518-1816-446E-9930-902AD17906F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PI.Modelo", "PI.Modelo", "{6812F614-E62E-4489-A8B4-34A7AFF8815F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET MVC", "ASP.NET MVC", "{F5A568FE-6580-4C90-8859-4BE61FABDFC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsForms", "WindowsForms", "{64035F42-0E21-4912-8675-264FF1EC4B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI.Modelo", "PI.Modelo\PI.Modelo\PI.Modelo.csproj", "{8FEFF085-DAE2-4628-B69D-DA58A9AC69BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI.WindowsForms", "PI.Interface\WindowsForms\PI.WindowsForms\PI.WindowsForms.csproj", "{0E66363C-B094-456F-B094-04CAA6965EAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FEFF085-DAE2-4628-B69D-DA58A9AC69BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FEFF085-DAE2-4628-B69D-DA58A9AC69BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FEFF085-DAE2-4628-B69D-DA58A9AC69BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FEFF085-DAE2-4628-B69D-DA58A9AC69BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E66363C-B094-456F-B094-04CAA6965EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E66363C-B094-456F-B094-04CAA6965EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E66363C-B094-456F-B094-04CAA6965EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E66363C-B094-456F-B094-04CAA6965EAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5A568FE-6580-4C90-8859-4BE61FABDFC6} = {4E4CA518-1816-446E-9930-902AD17906F3}
+		{64035F42-0E21-4912-8675-264FF1EC4B00} = {4E4CA518-1816-446E-9930-902AD17906F3}
+		{8FEFF085-DAE2-4628-B69D-DA58A9AC69BE} = {6812F614-E62E-4489-A8B4-34A7AFF8815F}
+		{0E66363C-B094-456F-B094-04CAA6965EAC} = {64035F42-0E21-4912-8675-264FF1EC4B00}
+	EndGlobalSection
+EndGlobal
