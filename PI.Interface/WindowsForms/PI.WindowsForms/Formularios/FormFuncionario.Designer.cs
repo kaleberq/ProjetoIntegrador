@@ -41,6 +41,7 @@
             this.btEditarFuncionario = new System.Windows.Forms.Button();
             this.btnExcluirFuncionario = new System.Windows.Forms.Button();
             this.cboEstacionamento = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFuncionario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,11 +148,21 @@
             this.cboEstacionamento.Size = new System.Drawing.Size(295, 21);
             this.cboEstacionamento.TabIndex = 12;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(315, 159);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Editar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FormFuncionario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(542, 361);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.cboEstacionamento);
             this.Controls.Add(this.btnExcluirFuncionario);
             this.Controls.Add(this.btEditarFuncionario);
@@ -188,5 +199,6 @@
         private System.Windows.Forms.Button btEditarFuncionario;
         private System.Windows.Forms.Button btnExcluirFuncionario;
         private System.Windows.Forms.ComboBox cboEstacionamento;
+        private System.Windows.Forms.Button button1;
     }
 }
